@@ -6,14 +6,15 @@ pipeline{
     environment {
         DOCKERHUB_CREDENTIALS_ID = 'test' 
         DOCKERHUB_USERNAME       = 'nishanth09'
-        IMAGE_NAME               = "${nishanth300}/my-app"
-        CONTAINER_NAME           = "my-app-container"
+        IMAGE_NAME               = "nishanth300/webapp"
+        CONTAINER_NAME           = "webapp-container"
     }
     stages{
         stage('Github src') {
             steps {
                 echo 'Checking out source code...'
-                git branch: 'master', url: 'https://github.com/vsrihari0401/devops-project.git'
+             git branch: 'master', url: 'https://github.com/nishanth300/webapps.git'
+
             }
         }
 
@@ -44,13 +45,13 @@ pipeline{
             steps {
                 script {
                     echo "Pushing image: ${IMAGE_NAME}:${BUILD_NUMBER}"
-                    sh "sudo docker push ${IMAGE_NAME}:${BUILD_NUMBER}"
+                    sh "docker push ${IMAGE_NAME}:${BUILD_NUMBER}"
                     
                     echo "Tagging as 'latest'..."
-                    sh "sudo docker tag ${IMAGE_NAME}:${BUILD_NUMBER} ${IMAGE_NAME}:latest"
+                    sh "docker tag ${IMAGE_NAME}:${BUILD_NUMBER} ${IMAGE_NAME}:latest"
                     
                     echo "Pushing 'latest' tag..."
-                    sh "sudo docker push ${IMAGE_NAME}:latest"
+                    sh "docker push ${IMAGE_NAME}:latest"
                 }
             }
         }
