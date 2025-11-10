@@ -44,13 +44,13 @@ pipeline{
             steps {
                 script {
                     echo "Pushing image: ${IMAGE_NAME}:${BUILD_NUMBER}"
-                    sh "docker push ${IMAGE_NAME}:${BUILD_NUMBER}"
+                    sh "sudo docker push ${IMAGE_NAME}:${BUILD_NUMBER}"
                     
                     echo "Tagging as 'latest'..."
-                    sh " docker tag ${IMAGE_NAME}:${BUILD_NUMBER} ${IMAGE_NAME}:latest"
+                    sh "sudo docker tag ${IMAGE_NAME}:${BUILD_NUMBER} ${IMAGE_NAME}:latest"
                     
                     echo "Pushing 'latest' tag..."
-                    sh "docker push ${IMAGE_NAME}:latest"
+                    sh "sudo docker push ${IMAGE_NAME}:latest"
                 }
             }
         }
@@ -65,9 +65,9 @@ pipeline{
         stage('Run Container') {
             steps {
                 echo "Running new container ${CONTAINER_NAME} on port 8084..."
-                sh "docker stop ${CONTAINER_NAME} || true"
-                sh "docker rm ${CONTAINER_NAME} || true"
-                sh "docker run -d -p 8084:8080 --name ${CONTAINER_NAME} ${IMAGE_NAME}:latest"
+                sh "sudo docker stop ${CONTAINER_NAME} || true"
+                sh "sudo docker rm ${CONTAINER_NAME} || true"
+                sh "sudo docker run -d -p 8084:8080 --name ${CONTAINER_NAME} ${IMAGE_NAME}:latest"
             }
         }
     }
