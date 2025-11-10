@@ -6,7 +6,7 @@ pipeline{
     environment {
         DOCKERHUB_CREDENTIALS_ID = 'test' 
         DOCKERHUB_USERNAME       = 'nishanth09'
-        IMAGE_NAME               = "${nishanth09}/my-app"
+        IMAGE_NAME               = "${nishanth300}/my-app"
         CONTAINER_NAME           = "my-app-container"
     }
     stages{
