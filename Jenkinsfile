@@ -28,7 +28,7 @@ pipeline{
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker image: ${IMAGE_NAME}:${BUILD_NUMBER}"
-                sh "docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} ."
+                sh "sudo docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} ."
             }
         }
 
